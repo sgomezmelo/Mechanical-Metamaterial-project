@@ -1,3 +1,7 @@
 # Mechanical Metamaterial project
 
-This repositroy contains the scripts relevant to the publication ---, and it is divided into two subdirectories: the image registration, which reconstructs the strain and displacement fields from experimentally taken images, and the FEM, which simulates the mechanical compression assuming linear elasticity with the aid of the finite element method. 
+This repository contains the scripts for simulation and data processing of mechanical compression of microstructures, relevant to the publication ---. It is divided into two subdirectories: the FEM, which simulates the compression with the aid of the Finite Elements Method assuming linear elasticity regime, and the Image registration, which reconstructs the displacement and strain fields from experimentally obtained images.  
+
+## FEM ##
+
+To simulate the mechanical compression, we solve the equations of linear elasticity using the Finite Element open software Fenics. The following 
