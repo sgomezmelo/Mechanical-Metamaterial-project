@@ -1,6 +1,6 @@
 # Mechanical Metamaterial project
 
-This repository contains the scripts for Finite Element Method simulations and image data processing of mechanical compression of microstructures, each of which is in a separate subfolder with the relevant code.  
+This repository contains the scripts for Finite Element Method simulations and image data processing of mechanical compression of microstructures, used in the publication --.
 
 ## FEM ##
 
