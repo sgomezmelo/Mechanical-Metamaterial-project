@@ -1,13 +1,13 @@
 # Mechanical Metamaterial project
 
-This repository contains the scripts for simulation and data processing of mechanical compression of microstructures, relevant to the publication ---. It is divided into two subdirectories: the FEM, which simulates the compression with the aid of the Finite Elements Method assuming linear elasticity regime, and the Image registration, which reconstructs the displacement and strain fields from experimentally obtained images.  
+This repository contains the scripts for Finite Element simulation and image data processing of mechanical compression of microstructures, each of which is in a separate subfolder with the relevant code.  
 
 ## FEM ##
 
-To simulate the mechanical compression, we solve the equations of linear elasticity using the Finite Element open software Fenics. The following packages are needed
+The mechanical compression of the microstructure is simulated with the aid of the Finite Element open software fenics. To run the script, the following packages are required:
 
 - Numpy
 - Fenics (dolfin) and ufl
 - Meshio
 
-The script takes as input the compressed microstructure in .msh format, and simulates compressions of 2um and 5um. 
+The program takes as input a meshed structure in .msh format. It then solves the linear elasticity equations with dirichlet boundary conditions, where displacement is specified at the minimum and maximum z values. The compression is simulated for compression steps of 2um and 5um. 
