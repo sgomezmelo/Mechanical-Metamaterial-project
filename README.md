@@ -4,4 +4,10 @@ This repository contains the scripts for simulation and data processing of mecha
 
 ## FEM ##
 
-To simulate the mechanical compression, we solve the equations of linear elasticity using the Finite Element open software Fenics. The following 
+To simulate the mechanical compression, we solve the equations of linear elasticity using the Finite Element open software Fenics. The following packages are needed
+
+- Numpy
+- Fenics (dolfin) and ufl
+- Meshio
+
+The script takes as input the compressed microstructure in .msh format, and simulates compressions of 2um and 5um. 
