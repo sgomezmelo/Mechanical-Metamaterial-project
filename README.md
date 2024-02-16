@@ -1,6 +1,6 @@
 # Mechanical Metamaterial project
 
-This repository contains the scripts to simulate and process the experimental image data of the mechanical compression of previously designed 3D microstructures.
+This repository contains the scripts to simulate and process the experimental image data of the mechanical compression of 3D microstructures.
 
 ## FEM ## 
 
