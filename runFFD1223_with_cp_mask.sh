@@ -6,11 +6,11 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 basePath=/Users/blumberg/LocalDocuments
-dataPath=/Users/blumberg/LocalDocuments/p33_realigned
+dataPath=/Users/blumberg/LocalDocuments/p33_realigned #Directory with the stored image stacks
 paramPath=$basePath/eval_3
 storePath=$basePath/eval_3
 
-fmask=$dataPath/p33_mask.tif
+fmask=$dataPath/p33_mask.tif #Path to the (undeformed) mask file
 param=$paramPath/ffdParameters.txt
 
 #maskDir=$storePath/mask_out_s
@@ -31,7 +31,7 @@ do
     j=${steps[k+1]}
     echo i = $i um / j = $j um
     
-    moving=$dataPath/p33_${j}um.tif
+    moving=$dataPath/p33_${j}um.tif #Path to the deformed image stack
     outDir=$storePath/elastix_out/c${j}um
     dField=$storePath/transformix_out/c${j}um
     t0file=$storePath/elastix_out/c${i}um/TransformParameters.0.txt
