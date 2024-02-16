@@ -2,7 +2,7 @@
 
 This repository contains the scripts for Finite Element Method simulations and image data processing of mechanical compression of microstructures, used in the publication --.
 
-## FEM ##plot_sections_p33.py 
+## FEM ## 
 
 The python script "FEM_linear_elasticity.py" simulates the compression of a (micro)structure with the Finite Elements open software Fenics, assuming linear elasticity and specified displacement. The following packages are required:
 
