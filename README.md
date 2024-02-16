@@ -16,7 +16,7 @@ The program takes as input a meshed structure in .msh format. It first solves fo
 
 Given a set of images of the microstructure before and after compression, the strain and displacement field may be reconstructed with the open reconstruction software elastix, which must be previously installed (see https://elastix.lumc.nl/). The following steps explain how to do so. The set of images before and after compression must be collected in a tif image stack. 
 
-The elastix is run with the bash script "runFFD1223_with_cp_mask.sh". This script looks for the undeformed image mask stack and the deformed image stack under the names "fname" and "moving", respectively. Both of these are searched in the path "DataPath". The reconstruction program is then executed with the options specified in "ffdParameters.txt", which is found in the path "paramPath", a subdirectory of "basePath". Currently the bash script loops over several compression steps. The result of the reconstruction is then stored in "outDir" and "dField", a subdirectory of the path "storePath". These store the Jacobian of the transformation as a .nrrd file. 
+The elastix is run with the bash script "runFFD1223_with_cp_mask.sh". This script looks for the undeformed image mask stack and the deformed image stack under the names "fname" and "moving", respectively. The reconstruction program is then executed with the options specified in "ffdParameters.txt". Currently the bash script loops over several compression steps. The results of the reconstruction are then stored as nrrd files in the directories "outDir" and "dField".
 
 The resulting .nrrd files then are postprocessed by the python script "plot_sections_p33.py", which requires the following scripts:
 
