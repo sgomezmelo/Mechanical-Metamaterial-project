@@ -28,5 +28,5 @@ The resulting .nrrd files then are postprocessed by the python script "plot_sect
 - DataClasses
 - tomli
 
-The python program looks for the elastix results from the path specified in the "evalconfig.toml". It then proceeds to calculate and plot based on the options in this same toml file. Both the python file and the .toml file may be edited to produce different projections according to the user's needs. 
+The python takes as input the toml file "evalconfig.toml" that contains the path to the nrrd files. It then proceeds to calculate and plot based on the options in this same toml file. Both the python file and the .toml file may be edited to produce different projections according to the user's needs. 
 
