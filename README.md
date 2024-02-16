@@ -4,7 +4,7 @@ This repository contains the scripts for Finite Element Method simulations and i
 
 ## FEM ##
 
-The mechanical compression of the microstructure is simulated with the aid of the Finite Element open software fenics. To run the python script "", the following packages are required:
+The mechanical compression of the microstructure is simulated with the aid of the Finite Element open software fenics. To run the python script "FEM_linear_elasticity.py", the following packages are required:
 
 - Numpy
 - Fenics (dolfin) and ufl
