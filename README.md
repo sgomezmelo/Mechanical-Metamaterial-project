@@ -4,7 +4,7 @@ This repository contains the scripts for Finite Element Method simulations and i
 
 ## FEM ##
 
-The mechanical compression of the microstructure is simulated with the aid of the Finite Element open software fenics. To run the script, the following packages are required:
+The mechanical compression of the microstructure is simulated with the aid of the Finite Element open software fenics. To run the python script "", the following packages are required:
 
 - Numpy
 - Fenics (dolfin) and ufl
@@ -14,4 +14,6 @@ The program takes as input a meshed structure in .msh format. It then solves the
 
 ## Image Registration ##
 
-Given a set of images of the microstructure before and after compression, the strain and displacement field may be reconstructed with the open software elastix, which must be previously installed (see https://elastix.lumc.nl/). 
+Given a set of images of the microstructure before and after compression, the strain and displacement field may be reconstructed with the open software elastix, which must be previously installed (see https://elastix.lumc.nl/). The following steps explain how to do so. The set of images before and after compression must be collected in a tif image stack. 
+
+First, run the bash script "runFFD1223_with_cp_mask.sh". This runs the elastix software with the parameters specified in "ffdParameters.txt". Currently 
