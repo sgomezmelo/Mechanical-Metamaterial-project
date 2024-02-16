@@ -1,0 +1,95 @@
+// ********** Image Types
+
+(FixedInternalImagePixelType "float")
+(FixedImageDimension 3)
+(MovingInternalImagePixelType "float")
+(MovingImageDimension 3)
+
+
+// ********** Components
+
+(Registration "MultiResolutionRegistration")
+(FixedImagePyramid "FixedSmoothingImagePyramid")
+(MovingImagePyramid "MovingSmoothingImagePyramid")
+(Interpolator "BSplineInterpolator")
+
+(Metric "AdvancedNormalizedCorrelation")
+(Optimizer "AdaptiveStochasticGradientDescent")
+(ResampleInterpolator "FinalBSplineInterpolator")
+(Resampler "DefaultResampler")
+(Transform "BSplineTransform")
+
+
+// ********** Pyramid
+
+// Total number of resolutions
+(NumberOfResolutions 4)
+(ImagePyramidSchedule   2 2 2  2 2 2  2 2 2  1 1 1)
+
+
+// ********** Transform
+
+
+// (FinalGridSpacingInVoxels 15 15 15)
+(GridSpacingSchedule 8 8 8  4 4 4  2 2 2  1.0 1.0 1.0)
+(HowToCombineTransforms "Compose")
+
+
+// ********** Optimizer
+
+
+(MaximumNumberOfIterations 500 1000 2000)
+(AutomaticParameterEstimation "true")
+(UseAdaptiveStepSizes "true")
+
+
+
+
+
+// ********** Metric
+// Just using the default values for the NC metric
+
+
+
+
+// ********** Several
+
+(WriteTransformParametersEachIteration "false")
+(WriteTransformParametersEachResolution "true")
+(WriteResultImageAfterEachResolution "false")
+(WritePyramidImagesAfterEachResolution "false")
+(WriteResultImage "true")
+(ShowExactMetricValue "false")
+(ErodeMask "false")
+(UseDirectionCosines "true")
+
+
+// ********** ImageSampler
+
+//Number of spatial samples used to compute the metric in each resolution level:
+
+
+(ImageSampler "RandomSparseMask")
+
+
+
+ (NumberOfSpatialSamples 5000 7000 10000)
+ (NewSamplesEveryIteration "true")
+
+
+
+
+// ********** Interpolator and Resampler
+
+//Order of B-Spline interpolation used in each resolution level:
+(BSplineInterpolationOrder 1)
+
+//Order of B-Spline interpolation used for applying the final deformation:
+(FinalBSplineInterpolationOrder 3)
+
+//Default pixel value for pixels that come from outside the picture:
+(DefaultPixelValue 0)
+
+(ResultImageFormat "nrrd")
+
+

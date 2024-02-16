@@ -1,0 +1,27 @@
+# File metadata
+
+# Location of the mask file
+imask = "/net/ag-schwarz/metamaterial_project/code_johannes_final/eval_p33/p33_mask.tif"
+# Location of the transformix output dir
+defdir = "/net/ag-schwarz/metamaterial_project/code_johannes_final/eval_p33/transformix_out"
+# Location to store plots into
+outdir = "/net/ag-schwarz/metamaterial_project/code_johannes_final/eval_p33/sections_p33"
+
+# System properties
+spacing = 0.128 #um
+young = 2.9
+poisson = 0.41
+finite = true # Use finite strain rather them linarized strain tensor
+
+# Plot properties
+cmapstr = "PRGn" # Also possible: "seismic"
+#steps = [2, 5, 9]
+umax = 5 # 2.4
+umin = -0.15
+umax_x = 5 # 1.92
+umin_x = -1.9
+umax_y = 5 # 1.35
+umin_y = -1.9
+emax = 50 #1.2
+emin = -50 #0.7
+tmax = 25
