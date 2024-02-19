@@ -10,7 +10,7 @@ The python script "FEM_linear_elasticity.py" simulates the compression of a (mic
 - Fenics (dolfin) and ufl
 - Meshio
 
-The program takes as input a meshed structure in .msh format. It first solves for the displacement field, which is specified at the minimum and maximum z values via Dirichlet boundary conditions, and then computes the resulting strain field. The script loops over several dirichlet boundary conditions in order to calculate several compression steps. The code maybe readily edited to simulate different material properties and compression steps, as well as to appropiately tunning the conversion between real and model length units, which is currently set to 2/9.63um.
+The program takes as input a meshed structure in .msh format. It first solves for the displacement field, which is specified at the minimum and maximum z values via Dirichlet boundary conditions, and then computes the resulting strain field. The script loops over several dirichlet boundary conditions in order to calculate several compression steps. The code may be readily edited to simulate different material properties and compression steps, as well as to appropiately tunning the conversion between real and model length units, which is currently set to 2/9.63um.
 
 ## Image Registration ##
 
