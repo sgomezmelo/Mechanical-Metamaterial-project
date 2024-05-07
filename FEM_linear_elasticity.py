@@ -14,6 +14,7 @@ mesh_name = input("Enter name of .msh file: ")
 mesh = dolfin.cpp.mesh.Mesh()
 mvc_subdomain = dolfin.MeshValueCollection("size_t", mesh, mesh.topology().dim())
 mvc_boundaries = dolfin.MeshValueCollection("size_t", mesh, mesh.topology().dim()-1)
+
 with XDMFFile(MPI.comm_world, mesh_name+".xdmf") as xdmf_infile:
     xdmf_infile.read(mesh)
     xdmf_infile.read(mvc_subdomain, "")
@@ -21,6 +22,7 @@ with XDMFFile(MPI.comm_world, mesh_name+".xdmf") as xdmf_infile:
 domains = dolfin.cpp.mesh.MeshFunctionSizet(mesh, mvc_subdomain)
 dx = Measure('dx', domain=mesh, subdomain_data=domains)
 
+print("Mesh size ", mesh.num_cells())
 nu = 0.41 #Material Poisson Ratio
 E = 2.9e+9 #Material Young Modulus in Pa
 rho = 1100.0 #Material Density in kg/m3
@@ -37,11 +39,11 @@ def epsilon(u):
 
 def stress(u):
     I = Identity(3)
-    s = 0.5*inner(I,epsilon(u))*I+2.0*mu_la*epsilon(u)
+    s = inner(I,epsilon(u))*I+2.0*mu_la*epsilon(u)
     return s
     
 W = VectorElement("CG", mesh.ufl_cell(), 1) 
-Vsig = TensorFunctionSpace(mesh, "CG", degree=1)
+Vsig = FunctionSpace(mesh, "CG",1)
 V = FunctionSpace(mesh,W)
 u_t = TrialFunction(V)
 v = TestFunction(V)
@@ -64,12 +66,15 @@ x_max = mesh.coordinates()[:, 0].max()
 x_center = (x_min+x_max)/2.0
 
 boundaries = MeshFunction("size_t", mesh, mesh.geometry().dim()-1)
-
+normals = FacetNormal(mesh)
 bttm().mark(boundaries, 1) 
 top().mark(boundaries, 2) 
 
+ds_bttm = Measure('ds', domain=mesh, subdomain_data=boundaries, subdomain_id = 1)
+
 dz_top = 0.0 #Prescribed displacement at the top of Anvil
-bc2 = DirichletBC(V, Constant((0, 0, dz_top)), boundaries, 1)
+du_tilted = 2.0*conv_factor #Tilted anvil simulated (if no tilting then set to 0)
+bc2 = DirichletBC(V, Expression((0, 0, "dz_top+du_tilted*(x[0]-x_min)/(x_max-x_min)"), dz_top = dz_top, du_tilted = du_tilted, x_max = x_max, x_min = x_min, x_c = x_center, degree = 1), boundaries, 1)
 
 parameters["form_compiler"]["cpp_optimize"] = True
 ffc_options = {"optimize": True, \
@@ -79,22 +84,24 @@ ffc_options = {"optimize": True, \
 
 #Prescribed displacement at the compressing anvil
 dz_b = -np.asarray([2.0, 5.0])*conv_factor
-du_tilted = 0.0 #Tilted anvil simulated (if no tilting then set to 0)
 u_r = [Function(V, name = "Displacement"+str(int(dz_b[i]))) for i in range(len(dz_b))]
 eps = [Function(Vsig, name="Strain"+str(int(dz_b[i]))) for i in range(len(dz_b))]
 
 for i in range(len(dz_b)):
+    print("Evaluating compression step "+str(i))
     u = u_r[i]
     dz_bttm = dz_b[i]
     sig = eps[i]
-    du_top_tilt = Expression((0.0,0.0,"dz_bttm+2.0*du_tilted*(x[0]-x_c)/(x_max-x_min)"), dz_bttm = dz_bttm, du_tilted = du_tilted, x_max = x_max, x_min = x_min, x_c = x_center, degree = 1)
+    du_top_tilt = Expression((0.0,0.0,"dz_bttm"), dz_bttm = dz_bttm, degree = 1)
     bc1 = DirichletBC(V, du_top_tilt, boundaries, 2)
     a = inner(stress(u_t),nabla_grad(v))*dx
     L = dot(f,v)*dx
     solve(a == L, u, [bc1, bc2], solver_parameters={'linear_solver': 'gmres', "preconditioner": "ilu"})
     print("Solved for displacement u. Projecting strain into L1 elements ")
     strain = epsilon(u)
-    sig.assign(project(strain, Vsig,solver_type = 'gmres', preconditioner_type = "ilu"))
+    traction = lamb*assemble(dot(stress(u),normals)[2]*ds_bttm(degree = 2))/conv_factor**2
+    print("The reaction force in z of the structure in Pa*um^2 is " + str(traction))
+    sig.assign(project(strain[2,2], Vsig,solver_type = 'cg', preconditioner_type = "jacobi"))
     u.vector()[:] =  u.vector()[:]/conv_factor #Convert back to um
     file_results = XDMFFile(mesh_name+"_elasticity_results_step"+str(int(dz_b[i]))+".xdmf")
     file_results.parameters["flush_output"] = True
