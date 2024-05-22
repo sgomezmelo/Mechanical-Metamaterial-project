@@ -1,0 +1,18 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Mechanical Metamaterial project
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Santiago
+    family-names: Gomez Melo
+    email: gomezmelo@thphys.uni-heidelberg.de
+  - given-names: 'Johannes '
+    family-names: Blumberg
+    email: johannes.blumberg@bioquant.uni-heidelberg.de
+repository-code: >-
+  https://github.com/sgomezmelo/Mechanical-Metamaterial-project
